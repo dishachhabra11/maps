@@ -47,6 +47,25 @@ const center = {
  
     // Add more markers as needed
   ];
+  const markers2 = [
+    { id: 3, lat: 22.7187, lng: 75.8648, title: 'Blue Marker 1' },
+    { id: 4, lat: 22.7202, lng: 75.8608, title: 'Blue Marker 2' },
+    { id: 33, lat: 22.7265, lng: 75.8680, title: 'Marker 33' },
+    { id: 34, lat: 22.7395, lng: 75.8605, title: 'Marker 34' },
+    { id: 35, lat: 22.7210, lng: 75.8745, title: 'Marker 35' },
+    { id: 36, lat: 22.7360, lng: 75.8730, title: 'Marker 36' },
+    { id: 37, lat: 22.7295, lng: 75.8665, title: 'Marker 37' },
+    { id: 38, lat: 22.7320, lng: 75.8585, title: 'Marker 38' },
+    { id: 39, lat: 22.7245, lng: 75.8715, title: 'Marker 39' },
+    { id: 40, lat: 22.7375, lng: 75.8595, title: 'Marker 40' },
+    // Add more blue markers as needed
+  ];
+
+  const blueMarkerIcon = {
+    url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', // URL to the blue marker icon
+    scaledSize: new window.google.maps.Size(40, 40),
+  };
+
 
 
 const Map = () => {
@@ -70,11 +89,20 @@ const Map = () => {
         zoom={10}
         center={center}
       >
-        {markers.map((marker) => (
+        {markers?.map((marker) => (
           <Marker
             key={marker.id}
             position={{ lat: marker.lat, lng: marker.lng }}
             title={marker.title}
+          />
+        ))}
+
+{markers2?.map((marker) => (
+          <Marker
+            key={marker.id}
+            position={{ lat: marker.lat, lng: marker.lng }}
+            title={marker.title}
+            icon={blueMarkerIcon}
           />
         ))}
       </GoogleMap>
