@@ -213,5 +213,6 @@ const  markersData=
           lat: 22.792908770675737,
           lng: 75.89435433636461,
           garbage_tax: "paid"}
-  ]
+    
+  ];
   export default markersData;

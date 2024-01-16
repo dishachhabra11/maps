@@ -15,7 +15,7 @@ const center = {
   
   
   const getMarkerColor = (marker) => {
-    const unpaidTaxes = [marker.garbage_tax, marker.water_tax, marker.property_tax].filter((tax) => "unpaid");
+    const unpaidTaxes = [marker.garbage_tax, marker.water_tax, marker.property_tax].filter((tax) => tax==="unpaid");
   
     if (unpaidTaxes.length === 3) {
       return 'red';
