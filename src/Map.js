@@ -61,6 +61,40 @@ const center = {
     // Add more blue markers as needed
   ];
 
+  const markersData = [
+    {
+      id: 1,
+      lat: 22.7254,
+      lng: 75.8655,
+      garbage_tax: false,
+      water_tax: false,
+      property_tax: true,
+    },
+    {
+        id: 2,
+        lat: 23.75430,
+        lng: 75.8655,
+        garbage_tax: true,
+        water_tax: true,
+        property_tax: true,
+      },
+    // Add more marker data as needed
+  ];
+
+  const getMarkerColor = (marker) => {
+    const unpaidTaxes = [marker.garbage_tax, marker.water_tax, marker.property_tax].filter((tax) => !tax);
+  
+    if (unpaidTaxes.length === 3) {
+      return 'red';
+    } else if (unpaidTaxes.length === 2) {
+      return 'orange';
+    } else if (unpaidTaxes.length === 1) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
+  };
+
   const blueMarkerIcon = {
     url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', // URL to the blue marker icon
     scaledSize: new window.google.maps.Size(40, 40),
@@ -89,7 +123,7 @@ const Map = () => {
         zoom={10}
         center={center}
       >
-        {markers?.map((marker) => (
+        {/* {markers?.map((marker) => (
           <Marker
             key={marker.id}
             position={{ lat: marker.lat, lng: marker.lng }}
@@ -103,6 +137,18 @@ const Map = () => {
             position={{ lat: marker.lat, lng: marker.lng }}
             title={marker.title}
             icon={blueMarkerIcon}
+          />
+        ))} */}
+
+{markersData.map((marker) => (
+          <Marker
+            key={marker.id}
+            position={{ lat: marker.lat, lng: marker.lng }}
+            title={`Marker ${marker.id}`}
+            icon={{
+              url: `https://maps.google.com/mapfiles/ms/icons/${getMarkerColor(marker)}-dot.png`,
+              scaledSize: new window.google.maps.Size(40, 40),
+            }}
           />
         ))}
       </GoogleMap>
