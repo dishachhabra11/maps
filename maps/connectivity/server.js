@@ -6,7 +6,7 @@ admin.initializeApp({
 });
 
 const firestore = admin.firestore();
-const collectionRef = firestore.collection('/users');
+const collectionRef = firestore.collection('pid');
 
 collectionRef.onSnapshot((snapshot) => {
   snapshot.docChanges().forEach((change) => {
@@ -23,3 +23,4 @@ collectionRef.onSnapshot((snapshot) => {
 }, (error) => {
   console.error('Error in real-time listener:', error);
 });
+

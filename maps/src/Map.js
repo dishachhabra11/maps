@@ -2,6 +2,8 @@ import React from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import markersData from './data';
 
+import server from '../connectivity/server';
+
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
@@ -29,9 +31,6 @@ const center = {
   };
 
 
-
-
-
 const Map = () => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAik0IVosernmdG7ppjmMbuRdsLdne3vjM',
@@ -54,7 +53,7 @@ const Map = () => {
         center={center}
       >
 
-{markersData.map((marker) => (
+{server.map((marker) => (
           <Marker
             key={marker.id}
             position={{ lat: marker.lat, lng: marker.lng }}
