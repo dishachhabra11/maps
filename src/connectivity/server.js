@@ -1,6 +1,7 @@
-const admin = require('firebase-admin');
+const admin = require('firebase-admin/auth');
 const serviceAccount = require('./firebase/jsom-c23a1-firebase-adminsdk-a4evw-b0a963f809.json');
-const fs = require('fs');
+// const fs = require('fs');
+const {  ref, onValue } = require('firebase/database');
 
 const filePath = 'file.js'; 
 let dataArray = [];
@@ -48,3 +49,17 @@ function writeToFile(filePath, data) {
   fs.writeFileSync(filePath, data);
   console.log('Data written to file successfully.');
 }
+
+const tofetchthedatafromdb=(callback)=>{
+
+  const dataref=ref(db,'pid');
+
+  onValue(dataref,(snapshot)=>{
+  
+    const data=snapshot.val();
+    callback(data);
+  })
+
+}
+
+module.exports={tofetchthedatafromdb};
