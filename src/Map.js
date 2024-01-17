@@ -1,8 +1,8 @@
 import React from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-import markersData from './data';
+import { markerData } from './connectivity/markerData';
 
-const libraries = ['places'];
+// const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
   height: '100vh',
@@ -15,7 +15,7 @@ const center = {
   
   
   const getMarkerColor = (marker) => {
-    const unpaidTaxes = [marker.garbage_tax, marker.water_tax, marker.property_tax].filter((tax) => tax==="unpaid");
+    const unpaidTaxes = [marker["Garbage Tax"], marker["Property Tax"], marker["Water Tax"]].filter((tax) => tax==="Unpaid");
   
     if (unpaidTaxes.length === 3) {
       return 'red';
@@ -28,14 +28,10 @@ const center = {
     }
   };
 
-
-
-
-
 const Map = () => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAik0IVosernmdG7ppjmMbuRdsLdne3vjM',
-    libraries,
+   
   });
 
   if (loadError) {
@@ -54,11 +50,15 @@ const Map = () => {
         center={center}
       >
 
-{markersData.map((marker) => (
+{markerData.map((marker) => (
           <Marker
-            key={marker.id}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            title={`Marker ${marker.id}`}
+            // key={marker.id}
+            position={{ lat: parseFloat(marker.Latitude), lng: parseFloat(marker.Longitude) }}
+            title={`Address ${marker.Address} ,lat ${marker.Latitude},lng ${marker.Longitude}`}
+            // icon={{
+            //   url: `https://maps.google.com/mapfiles/ms/icons/${getMarkerColor(marker)}-dot.png`,
+            //   scaledSize: new window.google.maps.Size(20, 20),
+            // }}
             icon={{
               url: `https://maps.google.com/mapfiles/ms/icons/${getMarkerColor(marker)}-dot.png`,
               scaledSize: new window.google.maps.Size(20, 20),
