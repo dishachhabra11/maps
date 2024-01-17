@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { markerData } from './connectivity/markerData';
+import Sidebar from './SideBar/SideBar';
 
 const mapContainerStyle = {
   width: '100vw',
@@ -12,18 +13,38 @@ const center = {
   lng: 75.8577,
 };
 
-const getMarkerColor = (marker) => {
-  const unpaidTaxes = [marker["Garbage Tax"], marker["Property Tax"], marker["Water Tax"]].filter((tax) => tax === "Unpaid");
+const getMarkerColor = (marker,filter) => {
+  const unpaidTaxes = [marker['Garbage Tax'], marker['Property Tax'], marker['Water Tax']].filter(
+    (tax) => tax === 'Unpaid'
+  );
 
-  if (unpaidTaxes.length === 3) {
+  if(filter==='all'){
+    if(unpaidTaxes.length === 3) {
+      return 'red';
+    } else if (unpaidTaxes.length === 2) {
+      return 'orange';
+    } else if (unpaidTaxes.length === 1) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
+   }
+
+  if (filter === 'unpaidWaterTax' && marker['Water Tax'] === 'Unpaid') {
     return 'red';
-  } else if (unpaidTaxes.length === 2) {
-    return 'orange';
-  } else if (unpaidTaxes.length === 1) {
-    return 'yellow';
-  } else {
+  } else if (filter === 'unpaidPropertyTax' && marker['Property Tax'] === 'Unpaid') {
+    return 'red';
+  } else if (filter === 'unpaidGarbageTax' && marker['Garbage Tax'] === 'Unpaid') {
+    return 'red';
+  }
+  else if (filter === 'unpaidWaterTax' && marker['Water Tax'] === 'Paid') {
+    return 'green';
+  } else if (filter === 'unpaidPropertyTax' && marker['Property Tax'] === 'Paid') {
+    return 'green';
+  } else if (filter === 'unpaidGarbageTax' && marker['Garbage Tax'] === 'Paid') {
     return 'green';
   }
+   
 };
 
 const Map = () => {
@@ -32,6 +53,7 @@ const Map = () => {
   });
 
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [filter, setFilter] = useState('all');
 
   const handleMarkerClick = (marker) => {
     setSelectedMarker(marker);
@@ -40,6 +62,20 @@ const Map = () => {
   const handleInfoWindowClose = () => {
     setSelectedMarker(null);
   };
+
+  const filteredMarkers = (marker) => {
+    switch (filter) {
+      case 'unpaidWaterTax':
+        return markerData.filter((marker) => marker['Water Tax'] === 'Unpaid');
+      case 'unpaidPropertyTax':
+        return markerData.filter((marker) => marker['Property Tax'] === 'Unpaid');
+      case 'unpaidGarbageTax':
+        return markerData.filter((marker) => marker['Garbage Tax'] === 'Unpaid');
+      default:
+        return markerData;
+    }
+  };
+
 
   if (loadError) {
     return <div>Error loading maps</div>;
@@ -51,18 +87,14 @@ const Map = () => {
 
   return (
     <div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={10}
-        center={center}
-      >
+      <Sidebar onFilterChange={(newFilter) => setFilter(newFilter)} />
+      <GoogleMap mapContainerStyle={mapContainerStyle} zoom={10} center={center}>
         {markerData.map((marker) => (
           <Marker
             key={marker.id}
             position={{ lat: parseFloat(marker.Latitude), lng: parseFloat(marker.Longitude) }}
-            // title={`Address ${marker.Address} ,lat ${marker.Latitude},lng ${marker.Longitude}`}
             icon={{
-              url: `https://maps.google.com/mapfiles/ms/icons/${getMarkerColor(marker)}-dot.png`,
+              url: `https://maps.google.com/mapfiles/ms/icons/${getMarkerColor(marker,filter)}-dot.png`,
               scaledSize: new window.google.maps.Size(20, 20),
             }}
             onClick={() => handleMarkerClick(marker)}
@@ -75,14 +107,21 @@ const Map = () => {
             onCloseClick={handleInfoWindowClose}
           >
             <div>
-            <div><b>Name:{selectedMarker.Name}</b></div>
-              <div><b>Address: {selectedMarker.Address}</b></div>
-             
-              
-              <div><b>Property Tax:{selectedMarker["Property Tax"]}</b></div>
-              <div><b>Water Tax:{selectedMarker["Water Tax"]}</b></div>
-              <div><b>Water Tax:{selectedMarker["Garbage Tax"]}</b></div>
-              
+              <div>
+                <b>Name: {selectedMarker.Name}</b>
+              </div>
+              <div>
+                <b>Address: {selectedMarker.Address}</b>
+              </div>
+              <div>
+                <b>Property Tax: {selectedMarker['Property Tax']}</b>
+              </div>
+              <div>
+                <b>Water Tax: {selectedMarker['Water Tax']}</b>
+              </div>
+              <div>
+                <b>Garbage Tax: {selectedMarker['Garbage Tax']}</b>
+              </div>
             </div>
           </InfoWindow>
         )}
