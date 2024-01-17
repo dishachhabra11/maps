@@ -1,15 +1,16 @@
 import React from 'react';
+import './index.css'
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import Map from './Map';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
-   <Map/>
- 
+   <React.StrictMode>
+      <BrowserRouter>
+            <App />
+      </BrowserRouter>
+   </React.StrictMode>
 );
 
 
-reportWebVitals();

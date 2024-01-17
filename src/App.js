@@ -1,10 +1,15 @@
+import { Routes,Route } from "react-router";
+import NavBar from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
 
-import './App.css';
-
-function App() {
+const App = () => {
   return (
-    
-    <div>app</div>
+    <div>
+      <NavBar />
+      <Routes> 
+        <Route path="/" element={<Dashboard />} />
+      </Routes>
+    </div>
   );
 }
 
