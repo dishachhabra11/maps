@@ -7,8 +7,7 @@ import Sidebar from './SideBar/SideBar';
 function App() {
   return (
     <div>
-      
-      {/* <NavBar/> */}
+      <NavBar/>
       <Map/>
     </div>
     

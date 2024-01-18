@@ -4,8 +4,11 @@ import { markerData } from './connectivity/markerData';
 import Sidebar from './SideBar/SideBar';
 
 const mapContainerStyle = {
-  width: '100vw',
+  width: '85vw',
   height: '100vh',
+  position: 'absolute',
+  top: 0,
+  right: 0,
 };
 
 const center = {
