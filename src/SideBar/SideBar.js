@@ -1,4 +1,5 @@
 import React from 'react';
+import "./SideBar.css";
 
 const Sidebar = ({ onFilterChange }) => {
     const handleButtonClick = (filter) => {
@@ -6,11 +7,11 @@ const Sidebar = ({ onFilterChange }) => {
     };
   
     return (
-      <div>
+      <div className='sidebar'>
         <button onClick={() => handleButtonClick('all')}>Show All</button>
-        <button onClick={() => handleButtonClick('unpaidWaterTax')}>Unpaid Water Tax</button>
-        <button onClick={() => handleButtonClick('unpaidPropertyTax')}>Unpaid Property Tax</button>
-        <button onClick={() => handleButtonClick('unpaidGarbageTax')}>Unpaid Garbage Tax</button>
+        <button onClick={() => handleButtonClick('unpaidGarbageTax')}>Garbage Tax</button>
+        <button onClick={() => handleButtonClick('unpaidPropertyTax')}>Property Tax</button>
+        <button onClick={() => handleButtonClick('unpaidWaterTax')}>Water Tax</button>
       </div>
     );
   };

@@ -3,9 +3,13 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps
 import { markerData } from './connectivity/markerData';
 import Sidebar from './SideBar/SideBar';
 
+
 const mapContainerStyle = {
-  width: '100vw',
+  width: '85vw',
   height: '100vh',
+  position: 'absolute',
+  top: 0,
+  right: 0,
 };
 
 const center = {
@@ -89,7 +93,7 @@ const Map = () => {
     <div>
       <Sidebar onFilterChange={(newFilter) => setFilter(newFilter)} />
       <GoogleMap mapContainerStyle={mapContainerStyle} zoom={10} center={center}>
-        {markerData.map((marker) => (
+        {markerData?.map((marker) => (
           <Marker
             key={marker.id}
             position={{ lat: parseFloat(marker.Latitude), lng: parseFloat(marker.Longitude) }}
@@ -131,7 +135,6 @@ const Map = () => {
 };
 
 export default Map;
-
 
 
 
