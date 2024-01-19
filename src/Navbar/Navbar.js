@@ -11,22 +11,28 @@ import usePlacesAutocomplete, {
 import Select from "react-select";
 import { useContext } from "react";
 import { Store } from "../utils/mapToNavbar";
+import logo from "../assests/IMC_logo.png"
 
 const NavBar = () => {
   const { obj } = useContext(Store);
   console.log("obj", obj);
-
+  const handleClick = () => {
+    
+  }
   return (
+
     <AppBar>
+       
       <Toolbar sx={{ bgcolor: "white", boxShadow: 4 }}>
-        <Typography level="h2" textColor="Blue">
+        <Typography level="h2" textColor="Blue" sx={{ml:"50px"}}>
           Digital Door
         </Typography>
+        
         {obj && <PlaceAutoComplete map={obj} />}
-        {/* <OutlinedInput placeholder="Search" size="small" sx={{ml: 10}}/> */}
-        {/* <Button variant="contained" sx={{ ml: 1}}><SearchIcon /></Button> */}
+        
         <IconButton sx={{ marginLeft: "auto" }} variant="contained">
-          <AccountCircleIcon fontSize="large" />
+         
+          <img src={logo} alt="" srcset="" style={{height: '50px'}}/>
         </IconButton>
       </Toolbar>
     </AppBar>
@@ -74,7 +80,7 @@ function PlaceAutoComplete({ map }) {
   const customStyles = {
     control: (baseStyles) => ({
       ...baseStyles,
-      marginLeft: "5em",
+      marginLeft: "54em",
       width: "20em",
     }),
     option: (provided, state) => ({

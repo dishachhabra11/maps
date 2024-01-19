@@ -7,7 +7,7 @@ import { Store } from './utils/mapToNavbar'
 const libraries = ['places'];
 
 const mapContainerStyle = {
-  width: '85vw',
+  width: '100vw',
   height: '100vh',
   position: 'absolute',
   top: 0,
