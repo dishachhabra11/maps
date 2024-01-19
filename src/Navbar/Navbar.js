@@ -42,6 +42,7 @@ const NavBar = () => {
   );
 };
 
+
 function PlaceAutoComplete({ map }) {
   const {
     ready,

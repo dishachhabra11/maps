@@ -58,7 +58,7 @@ const Sidebar = ({ onFilterChange }) => {
       </IconButton>
 
       <StyledDrawer variant={"persistent"} anchor="left" open={isSidebarOpen}>
-      <Typography level="h2" textColor="Blue" sx={{ mt: 1, ml: 6, textAlign: "center"}}>
+      <Typography level="h2" textColor="Blue" sx={{ mt: 2,ml: 6, textAlign: "center"}}>
           Digital Door
         </Typography>
         <StyledList sx={{ paddingTop: "20px" }}>
