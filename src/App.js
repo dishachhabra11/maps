@@ -9,7 +9,7 @@ function App() {
   return (
     <div>
       <StoreProvider>
-        <NavBar />
+        <NavBar/>
         <Map />
       </StoreProvider>
     </div>
