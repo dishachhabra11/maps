@@ -2,17 +2,16 @@
 import './App.css';
 import NavBar from './Navbar/Navbar';
 import Map from './Map';
-import Sidebar from './SideBar/SideBar';
+// import Sidebar from './SideBar/SideBar';
+import { StoreProvider } from './utils/mapToNavbar';
 
 function App() {
   return (
     <div>
-<<<<<<< HEAD
-      
-=======
->>>>>>> d7b99f4383a29d732a124b00856153fe3a06eeed
-      <NavBar/>
-      <Map/>
+      <StoreProvider>
+        <NavBar />
+        <Map />
+      </StoreProvider>
     </div>
     
   );

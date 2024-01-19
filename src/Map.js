@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { markerData } from './connectivity/markerData';
 import Sidebar from './SideBar/SideBar';
+import { Store } from './utils/mapToNavbar'
 
+const libraries = ['places'];
 
 const mapContainerStyle = {
   width: '85vw',
@@ -52,8 +54,16 @@ const getMarkerColor = (marker,filter) => {
 };
 
 const Map = () => {
+
+  const [map, setMap] = useState(null);
+  const {obj, setVar} = useContext(Store);
+  const setMapSync = (value) => {
+    setVar(value);
+    setMap(value);
+  }
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAik0IVosernmdG7ppjmMbuRdsLdne3vjM',
+    libraries
   });
 
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -92,7 +102,7 @@ const Map = () => {
   return (
     <div>
       <Sidebar onFilterChange={(newFilter) => setFilter(newFilter)} />
-      <GoogleMap mapContainerStyle={mapContainerStyle} zoom={10} center={center}>
+      <GoogleMap mapContainerStyle={mapContainerStyle} zoom={10} center={center} onLoad={setMapSync}>
         {markerData?.map((marker) => (
           <Marker
             key={marker.id}
@@ -135,6 +145,3 @@ const Map = () => {
 };
 
 export default Map;
-
-
-
