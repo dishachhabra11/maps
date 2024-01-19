@@ -42,7 +42,7 @@ const Sidebar = ({ onFilterChange }) => {
   };
 
   return (
-    <StyledDrawer variant={"permanent"} anchor="left">
+    <StyledDrawer className="sidebar" variant={"permanent"} anchor="left">
       <div />
       <StyledList sx={{ paddingTop: "80px" }}>
         <ListItem  onClick={() => handleButtonClick("all")}>
